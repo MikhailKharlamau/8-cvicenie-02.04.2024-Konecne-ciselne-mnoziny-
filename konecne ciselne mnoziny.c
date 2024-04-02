@@ -41,6 +41,24 @@ void zjednotenie_mnozin (int *a, int *b, int *c){
 		}
 	c[0]=a[0]+p;	
 	}
+	
+void priecelnik_mnozin(int *a, int *b, int *c){
+	int k=0,p=0;
+	
+	for (int i=1;i<a[0]+1;i++){
+		 for (int j=0;j<b[0]+1;j++){
+			if(a[i]==b[j]){
+				k++;
+				}
+			}
+		 if (k>0)
+			{c[1+p]=a[i];
+				p++;
+		 	}
+		 k=0;	
+		}
+	c[0]=p;
+	}
 		
 main(){
 	int *a=(int*)malloc(101*sizeof(int));
@@ -53,5 +71,8 @@ main(){
 	vypis_mnoziny(b);
 	zjednotenie_mnozin(a,b,c);
 	printf("\nZjednotena mnozina: \n");
+	vypis_mnoziny(c);
+	priecelnik_mnozin(a,b,c);
+	printf("\nPriecelnik mnozin: \n");
 	vypis_mnoziny(c);
 }
