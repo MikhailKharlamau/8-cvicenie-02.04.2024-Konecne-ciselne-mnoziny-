@@ -17,8 +17,17 @@ void def_a_vypis_mnozinu(MNOZINA *a){
 		 }
 	}
 
+void vypis_mnoziny(MNOZINA *a){
+	
+	for (int i=0; i<a->l; i++){
+		 printf("%d ",a->a[i]);
+		 }	
+	}
+
+	
 main(){
-	MNOZINA a;
+	MNOZINA a,b,c;
 	
 	def_a_vypis_mnozinu(&a);
+	def_a_vypis_mnozinu(&b);
 }
