@@ -15,7 +15,7 @@ void def_mnozinu(int *a){
 		} 	
 	}
 	
-void def_nahodnu_mnozinu(int *a){
+void def_nah_mnozinu(int *a){
 	int l;
 	
 	printf("Zadaj pocet prvkov mnoziny: ");
@@ -26,6 +26,14 @@ void def_nahodnu_mnozinu(int *a){
 		{a[i]=(rand()%100);
 		} 	
 	}
+	
+void def_nah_mnozinu_dlzk(int *a, int l){
+	
+	a[0]=l;
+	for (int i=1; i<a[0]+1; i++)
+		{a[i]=(rand()%100);
+		} 	
+	}	
 
 void vypis_mnoziny(int *a){
 	
@@ -40,25 +48,22 @@ void zjednotenie_mnozin (int *a, int *b, int *c, int *pocet){
 	
 	for (int i=1; i<a[0]+1; i++){
 		c[i]=a[i];
-		(*pocet)++;
 		}
 	for (int j=1; j<b[0]+1; j++){
 		for (int i=1; i<a[0]+1; i++)
 			{if (b[j]!=a[i])
-				{k++;
-				 (*pocet)++;
+				{(*pocet)++;
+				 k++;
 				 if (k==a[0]){
+				 	(*pocet)++;
 				 	c[a[0]+1+p]=b[j];
 				 	p++;
-				 	(*pocet)+=2;
 					 }	 
 				}	
 			}
 		k=0;
-		(*pocet)++;
 		}
-	c[0]=a[0]+p;
-	(*pocet)++;	
+	c[0]=a[0]+p;	
 	}
 	
 void priecelnik_mnozin(int *a, int *b, int *c, int *pocet){
@@ -66,32 +71,60 @@ void priecelnik_mnozin(int *a, int *b, int *c, int *pocet){
 	
 	for (int i=1;i<a[0]+1;i++){
 		 for (int j=0;j<b[0]+1;j++){
-			if(a[i]==b[j]){
-				k++;
-				(*pocet)++;	
+		 	if(a[i]==b[j]){
+				(*pocet)++;
+				k++;	
 				}
 			}
 		 if (k>0)
-			{c[1+p]=a[i];
-				p++;
-				(*pocet)++;	
+			{(*pocet)++;
+			c[1+p]=a[i];
+			p++;	
 		 	}
-		 k=0;
-		 (*pocet)++;		
+		 k=0;	
 		}
-	c[0]=p;
-	(*pocet)++;	
+	c[0]=p;	
+	}
+	
+void vyp_poctu_oper(int *poc){
+	int a[101];
+	int b[101];
+	int c[101];
+	int p=0;
+	
+	poc[0]=100;
+	for (int i=1;i<poc[0]+1;i++){
+		poc[i]=0;
+		}
+	for (int i=1;i<poc[0]+1;i++){
+		def_nah_mnozinu_dlzk(a,i);
+		def_nah_mnozinu_dlzk(b,i);
+		zjednotenie_mnozin (a,b,c,&p);
+		priecelnik_mnozin (a,b,c,&p);	
+		poc[i]=p;
+		}
+	}
+	
+zapis_mnoziny_do_txt(int *a){
+	FILE* sub;
+	
+	sub=fopen("mnozina.txt","w");
+	for (int i=1;i<a[0]+1;i++){
+		fprintf(sub,"%d\n",a[i]);
+		}
+	fclose(sub);	
 	}
 		
 main(){
 	int a[101];
 	int b[101];
 	int c[101];
+	int p[101];
 	int pocet=0;
 	
-	def_nahodnu_mnozinu(a);
+/*	def_mnozinu(a);
 	vypis_mnoziny(a);
-	def_nahodnu_mnozinu(b);
+	def_mnozinu(b);
 	vypis_mnoziny(b);
 	zjednotenie_mnozin(a,b,c,&pocet);
 	printf("\nZjednotena mnozina: \n");
@@ -99,5 +132,8 @@ main(){
 	priecelnik_mnozin(a,b,c,&pocet);
 	printf("\nPriecelnik mnozin: \n");
 	vypis_mnoziny(c);
-	printf("\nPocet operacie z mnozinami: %d", pocet);
+	printf("\nPocet operacie z mnozinami: %d", pocet); */
+	vyp_poctu_oper(p);
+	vypis_mnoziny(p);
+	zapis_mnoziny_do_txt(p);	
 }
