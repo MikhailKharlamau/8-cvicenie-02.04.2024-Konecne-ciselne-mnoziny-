@@ -1,4 +1,6 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
 
 void def_mnozinu(int *a){
 	int l;
@@ -10,6 +12,18 @@ void def_mnozinu(int *a){
 	for (int i=1; i<a[0]+1; i++)
 		{printf("Zadaj %d-ty prvkok mnoziny: ",i);
 		 scanf("%d",&a[i]);
+		} 	
+	}
+	
+void def_nahodnu_mnozinu(int *a){
+	int l;
+	
+	printf("Zadaj pocet prvkov mnoziny: ");
+	scanf("%d",&l);
+	
+	a[0]=l;
+	for (int i=1; i<a[0]+1; i++)
+		{a[i]=(rand()%100);
 		} 	
 	}
 
@@ -61,13 +75,13 @@ void priecelnik_mnozin(int *a, int *b, int *c){
 	}
 		
 main(){
-	int *a=(int*)malloc(101*sizeof(int));
-	int *b=(int*)malloc(101*sizeof(int));
-	int *c=(int*)malloc(101*sizeof(int));
+	int *a[101];
+	int *b[101];
+	int *c[101];
 	
-	def_mnozinu(a);
+	def_nahodnu_mnozinu(a);
 	vypis_mnoziny(a);
-	def_mnozinu(b);
+	def_nahodnu_mnozinu(b);
 	vypis_mnoziny(b);
 	zjednotenie_mnozin(a,b,c);
 	printf("\nZjednotena mnozina: \n");
