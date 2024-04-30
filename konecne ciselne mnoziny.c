@@ -31,7 +31,7 @@ void def_nah_mnozinu_dlzk(int *a, int l){
 	
 	a[0]=l;
 	for (int i=1; i<a[0]+1; i++)
-		{a[i]=(rand()%100);
+		{a[i]=(rand()%200);
 		} 	
 	}	
 
@@ -47,11 +47,14 @@ void zjednotenie_mnozin (int *a, int *b, int *c, int *pocet){
 	int k=0,p=0;
 	
 	for (int i=1; i<a[0]+1; i++){
+		(*pocet)++;
 		c[i]=a[i];
 		}
 	for (int j=1; j<b[0]+1; j++){
+		(*pocet)++;
 		for (int i=1; i<a[0]+1; i++)
-			{if (b[j]!=a[i])
+			{(*pocet)++;
+			 if (b[j]!=a[i])
 				{(*pocet)++;
 				 k++;
 				 if (k==a[0]){
@@ -70,14 +73,16 @@ void priecelnik_mnozin(int *a, int *b, int *c, int *pocet){
 	int k=0,p=0;
 	
 	for (int i=1;i<a[0]+1;i++){
-		 for (int j=0;j<b[0]+1;j++){
+		(*pocet)++;
+		 for (int j=1;j<b[0]+1;j++){
+		 	(*pocet)++;
 		 	if(a[i]==b[j]){
-				(*pocet)++;
+		 		(*pocet)++;
 				k++;	
 				}
 			}
 		 if (k>0)
-			{(*pocet)++;
+			{
 			c[1+p]=a[i];
 			p++;	
 		 	}
@@ -89,7 +94,7 @@ void priecelnik_mnozin(int *a, int *b, int *c, int *pocet){
 void vyp_poctu_oper(int *poc){
 	int a[101];
 	int b[101];
-	int c[101];
+	int c[201];
 	int p=0;
 	
 	poc[0]=100;
@@ -102,6 +107,7 @@ void vyp_poctu_oper(int *poc){
 		zjednotenie_mnozin (a,b,c,&p);
 		priecelnik_mnozin (a,b,c,&p);	
 		poc[i]=p;
+		p=0;
 		}
 	}
 	
@@ -116,12 +122,13 @@ zapis_mnoziny_do_txt(int *a){
 	}
 		
 main(){
-	int a[101];
-	int b[101];
-	int c[101];
+/*	int a[201];
+	int b[201];
+	int c[201]; */
 	int p[101];
 	int pocet=0;
 	
+	srand(time(0));
 /*	def_mnozinu(a);
 	vypis_mnoziny(a);
 	def_mnozinu(b);
